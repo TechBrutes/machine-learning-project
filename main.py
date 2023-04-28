@@ -5,8 +5,11 @@ import seaborn #a nice addition to matplotlib
 df = pandas.read_csv('xAPI-Edu-Data.csv')
 print(df.corr)
 
-#plot visualizations for each feature in the dataset
-#firstly, plot the count of the target feature (the one we're trying to predict), 'Class'
+
+#plotting visualizations for each feature in the dataset
+
+#CATEGORICAL DATA
+#Class (the target feature)
 seaborn.countplot(x='Class', data=df, order=['L', 'M', 'H'])
 plt.title("Count plot for Class (target feature")
 plt.show()
@@ -32,8 +35,27 @@ seaborn.countplot(x='StageID', data=df)
 plt.title("Count plot for Stage ID")
 plt.show()
 
-
 #grade Id
 seaborn.countplot(x='GradeID', data=df)
 plt.title("Count plot for Grade ID")
+plt.show()
+
+#section Id
+seaborn.countplot(x='SectionID', data=df)
+plt.title("Count plot for Section ID")
+plt.show()
+
+#Topic
+seaborn.countplot(x='Topic', data=df)
+plt.title("Count plot for Topic")
+plt.show()
+
+#Semester
+seaborn.countplot(x='Semester', data=df)
+plt.title("Count plot for Semester")
+plt.show()
+
+#Relation
+seaborn.countplot(x='Relation', data=df)
+plt.title("Count plot for Relation")
 plt.show()
