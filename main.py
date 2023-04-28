@@ -7,7 +7,7 @@ print(df.corr)
 
 
 #plotting visualizations for each feature in the dataset
-
+"""
 
 #CATEGORICAL DATA
 # Class (the target feature)
@@ -99,10 +99,12 @@ seaborn.countplot(x='StudentAbsenceDays', data=df, ax=axarr[0])
 seaborn.countplot(x='StudentAbsenceDays', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
 plt.suptitle("Count plot for StudentAbsenceDays")
 plt.show()
-
+"""
 #NUMERICAL DATA
+#pairplots help us visualize how numeric fields are scattered against each other
+#the class hue gives the plot meaning. we can know where good performers and poor performers lie in the scatter diagrams
 seaborn.pairplot(df, hue="Class", diag_kind="kde", hue_order=['L','M','H'])
-plt.title('Pairplot for all the numerical fields in the dataset')
+plt.suptitle('Pairplot for all the numerical fields in the dataset')
 plt.show()
 
 #PREPROCESSING THE DATA
