@@ -8,54 +8,103 @@ print(df.corr)
 
 #plotting visualizations for each feature in the dataset
 
+
 #CATEGORICAL DATA
-#Class (the target feature)
+# Class (the target feature)
 seaborn.countplot(x='Class', data=df, order=['L', 'M', 'H'])
 plt.title("Count plot for Class (target feature")
 plt.show()
 
 #gender
-seaborn.countplot(x='gender', data=df, order=['M', 'F'])
+fig, axarr  = plt.subplots(2) #to plot 2 graphs, one more detailed
+seaborn.countplot(x='gender', data=df, order=['M', 'F'], ax=axarr[0])
+seaborn.countplot(x='gender', hue='Class', data=df, order=['M', 'F'], hue_order = ['L', 'M', 'H'], ax=axarr[1])
 plt.title("Count plot for Gender")
 plt.show()
 
 #nationality
-seaborn.countplot(x='NationalITy', data=df)
-plt.title("Count plot for Nationality")
+fig, axarr  = plt.subplots(2)
+seaborn.countplot(x='NationalITy', data=df, ax=axarr[0])
+seaborn.countplot(x='NationalITy', data=df, hue='Class', hue_order = ['L', 'M', 'H'], ax=axarr[1])
+plt.suptitle("Count plot for Nationality")
 plt.show()
+
 
 #place of birth
-seaborn.countplot(x='PlaceofBirth', data=df)
-plt.title("Count plot for Place of birth")
+fig, axarr  = plt.subplots(2)
+seaborn.countplot(x='PlaceofBirth', data=df, ax=axarr[0])
+seaborn.countplot(x='PlaceofBirth', data=df, hue='Class', hue_order = ['L', 'M', 'H'], ax=axarr[1])
+plt.suptitle("Count plot for Place of birth")
 plt.show()
 
-
 #Stage Id
-seaborn.countplot(x='StageID', data=df)
-plt.title("Count plot for Stage ID")
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='StageID', data=df, ax=axarr[0])
+seaborn.countplot(x='StageID', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for Stage ID")
 plt.show()
 
 #grade Id
-seaborn.countplot(x='GradeID', data=df)
-plt.title("Count plot for Grade ID")
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='GradeID', data=df, ax=axarr[0])
+seaborn.countplot(x='GradeID', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for Grade ID")
 plt.show()
 
 #section Id
-seaborn.countplot(x='SectionID', data=df)
-plt.title("Count plot for Section ID")
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='SectionID', data=df, ax=axarr[0])
+seaborn.countplot(x='SectionID', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for Section ID")
 plt.show()
 
 #Topic
-seaborn.countplot(x='Topic', data=df)
-plt.title("Count plot for Topic")
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='Topic', data=df, ax=axarr[0])
+seaborn.countplot(x='Topic', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for Topic")
 plt.show()
 
 #Semester
-seaborn.countplot(x='Semester', data=df)
-plt.title("Count plot for Semester")
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='Semester', data=df, ax=axarr[0])
+seaborn.countplot(x='Semester', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for Semester")
 plt.show()
 
 #Relation
-seaborn.countplot(x='Relation', data=df)
-plt.title("Count plot for Relation")
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='Relation', data=df, ax=axarr[0])
+seaborn.countplot(x='Relation', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for Relation")
 plt.show()
+
+#ParentAnsweringSurvey
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='ParentAnsweringSurvey', data=df, ax=axarr[0])
+seaborn.countplot(x='ParentAnsweringSurvey', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for ParentAnsweringSurvey")
+plt.show()
+
+#ParentschoolSatisfaction
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='ParentschoolSatisfaction', data=df, ax=axarr[0])
+seaborn.countplot(x='ParentschoolSatisfaction', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for ParentschoolSatisfaction")
+plt.show()
+
+#StudentAbsenceDays
+fig, axarr = plt.subplots(2)
+seaborn.countplot(x='StudentAbsenceDays', data=df, ax=axarr[0])
+seaborn.countplot(x='StudentAbsenceDays', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
+plt.suptitle("Count plot for StudentAbsenceDays")
+plt.show()
+
+#NUMERICAL DATA
+seaborn.pairplot(df, hue="Class", diag_kind="kde", hue_order=['L','M','H'])
+plt.title('Pairplot for all the numerical fields in the dataset')
+plt.show()
+
+#PREPROCESSING THE DATA
+
+#CONFIGURING AND TRAINING THE MODELS
