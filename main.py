@@ -1,6 +1,7 @@
 import pandas   #pandas help handle the dataset. they frame the data nicely
 import matplotlib.pyplot as plt #this helps plot data visualizations
 import seaborn #a nice addition to matplotlib
+from sklearn.preprocessing import StandardScaler #to scale the numerical data
 
 df = pandas.read_csv('xAPI-Edu-Data.csv')
 print(df.corr)
@@ -107,6 +108,53 @@ seaborn.pairplot(df, hue="Class", diag_kind="kde", hue_order=['L','M','H'])
 plt.suptitle('Pairplot for all the numerical fields in the dataset')
 plt.show()
 
-#PREPROCESSING THE DATA
 
+#PREPROCESSING THE DATA
+#-----------------------
+#Translate GradeId from categorical to numerical data
+gradeID_dict = {
+    "G-01" : 1,
+    "G-02" : 2,
+    "G-03" : 3,
+    "G-04" : 4,
+    "G-05" : 5,
+    "G-06" : 6,
+    "G-07" : 7,
+    "G-08" : 8,
+    "G-09" : 9,
+    "G-10" : 10,
+    "G-11" : 11,
+    "G-12" : 12,
+}
+
+#Now replace the old values with the new values
+df = df.replace({"GradeID" : gradeID_dict})
+
+#Translate Class from categorical to numerical data also
+class_dict = {
+    "L" : -1,
+    "M" : 0,
+    "H" : 1,
+}
+
+#Then replace the old values
+df = df.replace({"Class" : class_dict})
+
+#Scale all the numerical fields
+scale = StandardScaler()
+
+scaled_GradeID = scale.fit_transform(df["GradeID"])
+scaled_raisedHands = scale.fit_transform(df["raisedHands"])
+scaled_visitedResources = scale.fit_transform(df["VisITedResources"])
+scaled_announcementsView = scale.fit_transform(df["AnnouncementsView"])
+scaled_discussion = scale.fit_transform(df["Discussion"])
+
+#convert categorical fields into dummy data (which is the way categorical data can be represented numerically, for the algorithm to understand)
+df = pandas.get_dummies(df, columns = [
+    "gender", "nationalITy", "PlaceofBirth", "SectionID", 
+    "StageID","Topic","Semester","Relation","ParentAnsweringSurvey",
+    "ParentschoolSatisfaction","StudentAbsenceDays"
+])
+
+print(df.head())
 #CONFIGURING AND TRAINING THE MODELS
