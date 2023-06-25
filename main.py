@@ -1,14 +1,13 @@
 import pandas   #pandas help handle the dataset. they frame the data nicely
 import matplotlib.pyplot as plt #this helps plot data visualizations
 import seaborn #a nice addition to matplotlib
-from sklearn.preprocessing import StandardScaler #to scale the numerical data
+from sklearn import preprocessing #to scale the numerical data
 
 df = pandas.read_csv('xAPI-Edu-Data.csv')
 print(df.corr)
 
 
 #plotting visualizations for each feature in the dataset
-"""
 
 #CATEGORICAL DATA
 # Class (the target feature)
@@ -100,7 +99,7 @@ seaborn.countplot(x='StudentAbsenceDays', data=df, ax=axarr[0])
 seaborn.countplot(x='StudentAbsenceDays', data=df, ax=axarr[1], hue='Class', hue_order=['L','M','H'])
 plt.suptitle("Count plot for StudentAbsenceDays")
 plt.show()
-"""
+
 #NUMERICAL DATA
 #pairplots help us visualize how numeric fields are scattered against each other
 #the class hue gives the plot meaning. we can know where good performers and poor performers lie in the scatter diagrams
@@ -141,17 +140,16 @@ class_dict = {
 df = df.replace({"Class" : class_dict})
 
 #Scale all the numerical fields
-scale = StandardScaler()
 
-scaled_GradeID = scale.fit_transform(df["GradeID"])
-scaled_raisedHands = scale.fit_transform(df["raisedHands"])
-scaled_visitedResources = scale.fit_transform(df["VisITedResources"])
-scaled_announcementsView = scale.fit_transform(df["AnnouncementsView"])
-scaled_discussion = scale.fit_transform(df["Discussion"])
+scaled_GradeID = preprocessing.scale(df["GradeID"])
+scaled_raisedHands = preprocessing.scale(df["raisedhands"])
+scaled_visitedResources = preprocessing.scale(df["VisITedResources"])
+scaled_announcementsView = preprocessing.scale(df["AnnouncementsView"])
+scaled_discussion = preprocessing.scale(df["Discussion"])
 
 #convert categorical fields into dummy data (which is the way categorical data can be represented numerically, for the algorithm to understand)
 df = pandas.get_dummies(df, columns = [
-    "gender", "nationalITy", "PlaceofBirth", "SectionID", 
+    "gender", "NationalITy", "PlaceofBirth", "SectionID", 
     "StageID","Topic","Semester","Relation","ParentAnsweringSurvey",
     "ParentschoolSatisfaction","StudentAbsenceDays"
 ])
