@@ -9,6 +9,7 @@ print(df.corr)
 
 #plotting visualizations for each feature in the dataset
 
+"""
 #CATEGORICAL DATA
 # Class (the target feature)
 seaborn.countplot(x='Class', data=df, order=['L', 'M', 'H'])
@@ -107,6 +108,7 @@ seaborn.pairplot(df, hue="Class", diag_kind="kde", hue_order=['L','M','H'])
 plt.suptitle('Pairplot for all the numerical fields in the dataset')
 plt.show()
 
+"""
 
 #PREPROCESSING THE DATA
 #-----------------------
@@ -155,4 +157,5 @@ df = pandas.get_dummies(df, columns = [
 ])
 
 print(df.head())
+
 #CONFIGURING AND TRAINING THE MODELS
