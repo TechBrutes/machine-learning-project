@@ -1,7 +1,8 @@
 import pandas   #pandas help handle the dataset. they frame the data nicely
-from sklearn import preprocessing #to scale the numerical data
+from sklearn import preprocessing # to scale the numerical data
 from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.linear_model import Perceptron
 from sklearn.metrics import r2_score
 import matplotlib.pyplot as plt
 
@@ -53,15 +54,19 @@ test_y = test_set["Class"]
 # NOW TRAIN THE THE DECISION TREE CLASSIFIER
 dtree = DecisionTreeClassifier()
 dtree = dtree.fit(train_x, train_y)
-# plt.show()
 
-print(dtree.score(test_x, test_y))
-
-
-
-
+print("Accuracy of Decision tree classifier:\t", dtree.score(test_x, test_y))
 
 
 #THE PERCEPTRON CLASSIFIER
+clf = Perceptron(tol=1e-3, random_state=0)
+clf.fit(train_x, train_y)
+Perceptron()
+print("Accuracy of Perceptron classifier:\t", clf.score(train_x, train_y))
 
 #THE SVM CLASSIFIER
+from sklearn.svm import SVC
+
+svm_clf = SVC(gamma='auto')
+svm_clf.fit(train_x, train_y)
+print("Accuracy of SVM classifier:\t\t", svm_clf.score(test_x, test_y))
