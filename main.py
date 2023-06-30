@@ -3,7 +3,7 @@ from sklearn import preprocessing # to scale the numerical data
 from sklearn import tree
 from sklearn.tree import DecisionTreeClassifier, plot_tree
 from sklearn.linear_model import Perceptron
-from sklearn.metrics import r2_score
+from sklearn import metrics
 import joblib # to export the models
 import matplotlib.pyplot as plt
 
@@ -51,7 +51,7 @@ test_y = test_set["Class"]
 dtree = DecisionTreeClassifier()
 dtree = dtree.fit(train_x, train_y)
 
-print("Accuracy of Decision tree classifier:\t", dtree.score(test_x, test_y))
+print("\nAccuracy of Decision tree classifier:\t", dtree.score(test_x, test_y))
 
 # #important analyses of the tree
 # value_pairs = dict(zip(dtree.feature_names_in_, dtree.feature_importances_))
@@ -82,8 +82,54 @@ svm_clf.fit(train_x, train_y)
 print("Accuracy of SVM classifier:\t\t", svm_clf.score(test_x, test_y))
 joblib.dump(svm_clf, 'models/svm.py') # export svm model
 
-#test run for loading model
-loaded_model = joblib.load('models/svm.py')
-result = loaded_model.score(test_x, test_y)
+# #test run for loading model
+# loaded_model = joblib.load('models/svm.py')
+# result = loaded_model.score(test_x, test_y)
+# print('\t------------------')
+# print('Result from imported model (SVM):\t', result, '\n')
+
+import numpy as np
+# metrics DTREE
+confusion_matrix = metrics.confusion_matrix(test_y, dtree.predict(test_x))
+cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = ['L', 'M', 'H'])
+cm_display.plot()
+plt.show()
+plt.close()
+
+Precision = metrics.precision_score(test_y, dtree.predict(test_x), average=None)
+Sensitivity_recall = metrics.recall_score(test_y, dtree.predict(test_x), average=None)
+Specificity = metrics.recall_score(test_y, dtree.predict(test_x), average=None)
+F1_score = metrics.f1_score(test_y, dtree.predict(test_x), average=None)
 print('\t------------------')
-print('Result from imported model (SVM):\t', result, '\n')
+print('DECISION TREE METRICS')
+print("Precision:", np.mean(Precision),"\nSensitivity_recall:", np.mean(Sensitivity_recall),"\nSpecificity:", np.mean(Specificity),"\nF1_score:", np.mean(F1_score), "\n")
+
+
+# metrics SVM
+confusion_matrix = metrics.confusion_matrix(test_y, svm_clf.predict(test_x))
+cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = ['L', 'M', 'H'])
+cm_display.plot()
+plt.show()
+plt.close()
+
+Precision = metrics.precision_score(test_y, svm_clf.predict(test_x), average=None)
+Sensitivity_recall = metrics.recall_score(test_y, svm_clf.predict(test_x), average=None)
+Specificity = metrics.recall_score(test_y, svm_clf.predict(test_x), average=None)
+F1_score = metrics.f1_score(test_y, svm_clf.predict(test_x), average=None)
+print('\t------------------')
+print('SVM METRICS')
+print("Precision:", np.mean(Precision),"\nSensitivity_recall:", np.mean(Sensitivity_recall),"\nSpecificity:", np.mean(Specificity),"\nF1_score:", np.mean(F1_score), "\n")
+
+#metrics PERCEPTRON
+confusion_matrix = metrics.confusion_matrix(test_y, clf.predict(test_x))
+cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = ['L', 'M', 'H'])
+cm_display.plot()
+plt.show()
+
+Precision = metrics.precision_score(test_y, clf.predict(test_x), average=None)
+Sensitivity_recall = metrics.recall_score(test_y, clf.predict(test_x), average=None)
+Specificity = metrics.recall_score(test_y, clf.predict(test_x), average=None)
+F1_score = metrics.f1_score(test_y, clf.predict(test_x), average=None)
+print('\t------------------')
+print('PERCEPTRON METRICS')
+print("Precision:", np.mean(Precision),"\nSensitivity_recall:", np.mean(Sensitivity_recall),"\nSpecificity:", np.mean(Specificity),"\nF1_score:", np.mean(F1_score), "\n")
