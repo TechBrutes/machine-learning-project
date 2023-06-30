@@ -52,11 +52,19 @@ dtree = DecisionTreeClassifier()
 dtree = dtree.fit(train_x, train_y)
 
 print("Accuracy of Decision tree classifier:\t", dtree.score(test_x, test_y))
-# print(dtree.feature_names_in_)
-joblib.dump(dtree, 'models/dtree.py') # export decision tree model
 
-plot_tree(dtree, max_depth=4, filled=True, feature_names=dtree.feature_names_in_)
-plt.show()
+# #important analyses of the tree
+# value_pairs = dict(zip(dtree.feature_names_in_, dtree.feature_importances_))
+# sorted_pairs = sorted(value_pairs.items(), key=lambda x: x[1], reverse=True)
+# ranked_pairs = {k: v for k, v in sorted_pairs}
+# print(sorted_pairs) # uncomment if you wish to print the features and their corresponding weights
+
+# export decision tree model
+joblib.dump(dtree, 'models/dtree.py')
+
+# #plot the tree
+# plot_tree(dtree, max_depth=4, filled=True, feature_names=dtree.feature_names_in_)
+# plt.show()
 
 #THE PERCEPTRON CLASSIFIER
 clf = Perceptron(tol=1e-3, random_state=0)
@@ -70,6 +78,7 @@ from sklearn.svm import SVC
 
 svm_clf = SVC(gamma='auto')
 svm_clf.fit(train_x, train_y)
+
 print("Accuracy of SVM classifier:\t\t", svm_clf.score(test_x, test_y))
 joblib.dump(svm_clf, 'models/svm.py') # export svm model
 
